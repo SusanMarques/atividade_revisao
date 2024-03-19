@@ -1,31 +1,11 @@
-/* O sistema deve permitir o cadastro de vários projetos, cada
-um contendo informações como nome do projeto, descrição, tecnologias utilizadas, data de
-início, data de término prevista e status (em andamento, concluído, etc.).
 
-Cada projeto deve
-ser composto por diversas tarefas, que devem incluir detalhes como nome da tarefa,
-descrição, desenvolvedor responsável, prazo e status (pendente, em execução, concluída).
-
-Para melhor organização, o sistema deve permitir a formação de equipes de
-desenvolvimento, onde cada equipe pode ser responsável por um ou mais projetos. Cada
-equipe deve ter um líder e uma lista de membros, e cada membro pode estar envolvido em
-várias tarefas em diferentes projetos. */
-
-/* Orientações para a Implementação: Você deve abstrair as entidades do sistema,
-como projetos, tarefas e equipes, em classes, definindo atributos e métodos apropriados
-para cada uma. Devem ser aplicados conceitos de orientação a objetos como
-encapsulamento, para proteger os dados e garantir o uso adequado das funcionalidades, e
-herança, caso existam categorias específicas de tarefas ou projetos. O polimorfismo pode
-ser utilizado para tratar de maneira flexível as diferentes ações que podem ser realizadas
-sobre projetos e tarefas. */
 
 // Definição da classe projeto 
 
 class Projeto{
-   
 
-    constructor(
-        public nome: string,
+    constructor( // construtor da classe projeto
+        public nome: string, // modificador public, no encapsulamento: Pode ser acessado tanto pela mesma classe, classes filhas e outras classes.
         public descricao:string,
         public tecnologias_utilizadas: string[],
         public data_de_inicio: Date,
@@ -39,8 +19,8 @@ class Projeto{
             this.data_de_termino = data_de_termino;
             this.status = status;
         }
+        mostrarDados(): void{ //Método para mostrar os dados de projeto
 
-        mostrarDados(): void{
             console.log('--------------Dados do Projeto-------------');
 
             console.log(`Nome: ${this.nome}`);
@@ -60,6 +40,7 @@ class Projeto{
         }
 
 }
+// Definição da classe tarefa
 
 class Tarefa{
 
@@ -76,7 +57,8 @@ class Tarefa{
             this.prazo = prazo;
             this.status = status;
         }
-        mostrarDados(): void{
+        
+        mostrarDados(): void{//Método para mostrar os dados de tarefa
             console.log('--------------Dados da tarefa-------------');
 
             console.log(`nome da tarefa: ${this.nome_da_tarefa}`);
@@ -94,6 +76,8 @@ class Tarefa{
         }
 
 }
+// Definição da classe equipe
+
 
 class Equipes{
 
@@ -121,6 +105,88 @@ class Equipes{
 
 }
 
+// Definição da classe funcionario
+class funcionario{
+    constructor(
+        public nome: string,
+        protected email: string, //modificador protected, no encapsulamento: Pode ser acessado pela mesma classe e classes filhas, não pode ser acessado por outras classes.
+        public telefone:string,
+        public data_nascimento: Date,
+        public endereco: string[],
+        protected cpf:string, 
+        public cargo:string,
+        protected genero?:string
+    ){}
+    mostrarDados():void{
+        console.log('--------------Dados do funcionário-------------');
+
+        console.log(`nome: ${this.nome}`);
+
+        console.log(`email: ${this.email}`);
+
+        console.log(`telefone: ${this.telefone}`);
+
+        console.log(`telefone: ${this.data_nascimento}`);
+
+        console.log(`telefone: ${this.endereco}`);
+
+        console.log(`telefone: ${this.cpf}`);
+
+        console.log(`telefone: ${this.cargo}`);
+
+        console.log(`telefone: ${this.genero}`);
+
+        console.log('----------------------------------------------')
+
+    }
+}
+
+// Herança - classe desenvolvedor herda de funcionario
+class desenvolvedor extends funcionario{
+    constructor(
+        nome: string,
+        email: string,
+        telefone: string,
+        data_nascimento: Date,
+        endereco: string[],
+        cpf: string,
+        cargo:string,
+        public habilidades: string[],
+        public area_de_programacao: string,
+        genero?:string
+
+    ){
+        super(nome,email,telefone,data_nascimento,endereco,cpf,cargo,genero);
+    }
+    mostrarDados(): void {
+        console.log('--------------Dados do desenvolvedor-------------');
+
+        console.log(`nome: ${this.nome}`);
+
+        console.log(`email: ${this.email}`);
+
+        console.log(`telefone: ${this.telefone}`);
+
+        console.log(`telefone: ${this.data_nascimento}`);
+
+        console.log(`telefone: ${this.endereco}`);
+
+        console.log(`telefone: ${this.cpf}`);
+
+        console.log(`telefone: ${this.cargo}`);
+
+        console.log(`telefone: ${this.genero}`);
+
+        console.log(`telefone: ${this.habilidades}`);
+
+        console.log(`telefone: ${this.area_de_programacao}`);
+
+
+        console.log('----------------------------------------------')
+
+    }
+}
+// criando instancias das classes
 const projeto1 = new Projeto('Projeto teste',
 'Esse é o projeto teste',['SCRUM', 'KANBAM'],
 new Date('2024-03-10'),
@@ -137,7 +203,32 @@ const equipe1 = new Equipes('João',
     ['joana','maria','debora'],
     projeto1);
 
+const funcionario1 = new funcionario(
+    'Luan Murilo Breno da Costa',
+    'luan_dacosta@slb.com',
+    '844442536',
+    new Date('03-03-1983'),
+    ['Passagem Belém','São João do Outeiro (Outeiro)'],
+    '445.927.466-35',
+    'Analista de sistemas',
+    'Masculino'
+);
 
+const desenvolvedor1 = new desenvolvedor(
+    'José Enrico Paulo Silveira',
+    'jose_enrico_silveira@hydropowermc.com.br',
+    '5489663621',
+    new Date('26-02-1960'),
+    ['Rua dos Acaris','Jardins Munique'],
+    '854.633.431-52',
+    'desenvolvedor',
+    ['SQL','PHP','typescript'],
+    'fulstack',
+    'masculino')
+
+//mostrando os dados através da chamada dos métodos
 projeto1.mostrarDados();
 tarefa1.mostrarDados();
 equipe1.mostrarDados();
+funcionario1.mostrarDados();
+desenvolvedor1.mostrarDados();
